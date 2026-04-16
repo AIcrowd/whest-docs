@@ -5,6 +5,7 @@ import path from 'node:path';
 
 import { loadSourceManifest } from '../lib/load-source-manifest.mjs';
 import { resolveProductSource } from '../lib/resolve-product-source.mjs';
+import { getRemoteUrl } from '../lib/source-remote-url.mjs';
 
 const execFile = promisify(execFileCallback);
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -36,7 +37,7 @@ async function ensureCheckout(productId, config) {
       '1',
       '--branch',
       config.ref,
-      `git@github.com:${config.repo}.git`,
+      getRemoteUrl(config.repo),
       resolved.checkoutPath,
     ]);
 
