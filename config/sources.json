@@ -1,0 +1,14 @@
+{
+  "products": {
+    "whest": {
+      "repo": "AIcrowd/whest",
+      "ref": "main",
+      "routeBase": "/whest"
+    },
+    "whestbench": {
+      "repo": "AIcrowd/whestbench",
+      "ref": "main",
+      "routeBase": "/whestbench"
+    }
+  }
+}

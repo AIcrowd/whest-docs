@@ -1,0 +1,31 @@
+name: Sync And Build
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - source-updated
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install root workspace dependencies
+        run: npm install
+
+      - name: Sync source repositories
+        run: npm run sync:sources
+        env:
+          GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=accept-new
+
+      - name: Prepare aggregated content metadata
+        run: npm run prepare:content
+
+      - name: Build shared docs site
+        run: npm run build
