@@ -17,6 +17,7 @@ function localOverrideEnv(productId) {
 
 async function ensureCheckout(productId, config) {
   const localPath = process.env[localOverrideEnv(productId)];
+  const sourceToken = process.env.SOURCE_REPO_TOKEN;
   const resolved = await resolveProductSource({
     productId,
     ...config,
@@ -37,7 +38,7 @@ async function ensureCheckout(productId, config) {
       '1',
       '--branch',
       config.ref,
-      getRemoteUrl(config.repo),
+      getRemoteUrl(config.repo, sourceToken),
       resolved.checkoutPath,
     ]);
 
